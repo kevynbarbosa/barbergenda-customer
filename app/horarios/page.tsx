@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import {
   Drawer,
   DrawerClose,
@@ -84,9 +85,13 @@ export default function AgendamentoDrawerPage() {
       <div className="relative mx-auto flex min-h-screen max-w-md flex-col px-4 pb-24 pt-6">
         <header className="flex items-center justify-between text-sm font-semibold text-neutral-700">
           <div className="flex items-center gap-2">
-            <button className="flex h-9 w-9 items-center justify-center rounded-full bg-white shadow-sm ring-1 ring-black/5">
-              <span className="text-lg">⌕</span>
-            </button>
+            <Link
+              href="/profissionais"
+              className="flex h-9 w-9 items-center justify-center rounded-full bg-white shadow-sm ring-1 ring-black/5"
+              aria-label="Voltar para profissionais"
+            >
+              <span className="text-lg">←</span>
+            </Link>
             <span className="text-base font-semibold">The Sharp Side</span>
           </div>
         </header>

@@ -74,6 +74,13 @@ export default function ServicosPage() {
       <div className="relative mx-auto flex min-h-screen max-w-md flex-col px-4 pb-28 pt-8">
         <header className="flex items-center justify-between">
           <div className="flex items-center gap-3">
+            <Link
+              href="/"
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-sm ring-1 ring-black/5"
+              aria-label="Voltar para início"
+            >
+              <span className="text-lg">←</span>
+            </Link>
             <div className="flex h-11 w-11 items-center justify-center rounded-full bg-white/90 shadow-sm ring-1 ring-black/5">
               <span className="text-base font-semibold tracking-tight">BB</span>
             </div>
@@ -174,10 +181,10 @@ export default function ServicosPage() {
             <span className="text-orange-600">Total estimado: R$ {total}</span>
           </div>
           <Link
-            href="/agendamentos"
+            href="/profissionais"
             className="flex w-full items-center justify-center rounded-full bg-neutral-900 px-6 py-4 text-base font-semibold text-white shadow-xl shadow-black/15 transition hover:translate-y-0.5"
           >
-            Continuar para horários
+            Escolher profissional
           </Link>
         </div>
       </div>
