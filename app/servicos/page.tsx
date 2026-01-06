@@ -134,9 +134,6 @@ export default function ServicosPage() {
                             </span>
                           ) : null}
                         </div>
-                        <p className="text-sm text-neutral-600">
-                          {service.desc}
-                        </p>
                         <div className="flex flex-wrap items-center gap-2 text-xs font-semibold text-neutral-500">
                           <span className="rounded-full bg-neutral-100 px-2 py-1">
                             {service.duration}
@@ -146,6 +143,9 @@ export default function ServicosPage() {
                           </span>
                         </div>
                       </div>
+                    </div>
+                    <div className="mt-3 rounded-xl bg-white/70 px-3 py-2 text-sm text-neutral-600">
+                      {service.desc}
                     </div>
                     <div className="mt-3 flex flex-col items-center gap-2 sm:flex-row sm:items-center sm:justify-between">
                       <span className="text-base font-semibold text-neutral-900">
