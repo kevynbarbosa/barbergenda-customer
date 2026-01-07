@@ -2,6 +2,7 @@
 
 import { BrandMark } from "@/components/BrandMark";
 import { ServiceCard, type Service } from "@/components/ServiceCard";
+import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 
@@ -77,7 +78,7 @@ export default function ServicosPage() {
               className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-sm ring-1 ring-black/5"
               aria-label="Voltar para início"
             >
-              <span className="text-lg">←</span>
+              <ArrowLeft className="h-5 w-5" aria-hidden />
             </Link>
             <BrandMark size={44} tone="light" />
             <div>

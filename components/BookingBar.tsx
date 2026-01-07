@@ -1,6 +1,7 @@
 "use client";
 
 import { BrandMark } from "@/components/BrandMark";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 type BookingBarProps = {
@@ -39,9 +40,11 @@ export function BookingBar({
               </p>
             </div>
           </div>
-          <span className="text-base font-semibold text-neutral-900 transition group-hover:translate-x-0.5">
-            →
-          </span>
+          <ArrowRight
+            size={18}
+            className="text-neutral-900 transition group-hover:translate-x-0.5"
+            aria-hidden
+          />
         </Link>
       </div>
     </div>

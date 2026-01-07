@@ -3,9 +3,7 @@
 export type Professional = {
   id: string;
   name: string;
-  role: string;
-  rating: string;
-  tags: string[];
+  img?: string;
 };
 
 type ProfessionalCardProps = {
@@ -29,36 +27,30 @@ export function ProfessionalCard({
           : "border-neutral-200 bg-white/95 hover:border-neutral-400 hover:shadow-sm"
       }`}
     >
-      <div className="flex items-start gap-3 sm:gap-4">
-        <div className="h-14 w-14 shrink-0 rounded-2xl bg-neutral-200" />
-        <div className="flex-1 space-y-2">
-          <div className="flex items-start justify-between gap-2">
-            <div className="space-y-1">
-              <h3 className="text-base font-semibold text-neutral-900">
-                {professional.name}
-              </h3>
-              <p className="text-sm text-neutral-600">{professional.role}</p>
-            </div>
-            <span
-              className={`flex h-6 w-6 items-center justify-center rounded-full border text-sm transition ${
-                selected
-                  ? "border-orange-500 bg-orange-500 text-white"
-                  : "border-neutral-300 text-transparent"
-              }`}
-            >
-              ✓
-            </span>
-          </div>
-          <p className="text-xs font-semibold text-neutral-500">
-            {professional.rating}
-          </p>
-          <div className="flex flex-wrap items-center gap-2 text-xs font-semibold text-neutral-500">
-            {professional.tags.map((tag) => (
-              <span key={tag} className="rounded-full bg-neutral-100 px-2 py-1">
-                {tag}
-              </span>
-            ))}
-          </div>
+      <div className="flex items-center gap-3 sm:gap-4">
+        <div className="h-16 w-16 shrink-0 overflow-hidden rounded-2xl bg-neutral-200">
+          {professional.img ? (
+            <img
+              src={professional.img}
+              alt={professional.name}
+              className="h-full w-full object-cover"
+              loading="lazy"
+            />
+          ) : null}
+        </div>
+        <div className="flex flex-1 items-center justify-between">
+          <h3 className="text-base font-semibold text-neutral-900">
+            {professional.name}
+          </h3>
+          <span
+            className={`flex h-6 w-6 items-center justify-center rounded-full border text-sm transition ${
+              selected
+                ? "border-orange-500 bg-orange-500 text-white"
+                : "border-neutral-300 text-transparent"
+            }`}
+          >
+            ✓
+          </span>
         </div>
       </div>
     </button>

@@ -5,6 +5,7 @@ import {
   ProfessionalCard,
   type Professional,
 } from "@/components/ProfessionalCard";
+import { ArrowLeft, Search } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -12,30 +13,22 @@ const pros: Professional[] = [
   {
     id: "nate",
     name: "Nate Black",
-    role: "Fade · Barba premium",
-    rating: "4.8 · 320 avaliações",
-    tags: ["Fade baixo", "Navalha quente"],
+    img: "/professionals/male_professional_1.png",
   },
   {
     id: "bella",
     name: "Bella Costa",
-    role: "Color + Styling",
-    rating: "4.9 · 280 avaliações",
-    tags: ["Colorista", "Finalização"],
+    img: "/professionals/female_professional_1.png",
   },
   {
     id: "sara",
     name: "Sara Martins",
-    role: "Clássico · Taper",
-    rating: "4.7 · 190 avaliações",
-    tags: ["Tesoura", "Texturização"],
+    img: "/professionals/female_professional_2.png",
   },
   {
-    id: "any",
-    name: "Any Souza",
-    role: "Design de barba",
-    rating: "4.8 · 210 avaliações",
-    tags: ["Modelagem", "Aromaterapia"],
+    id: "claudio",
+    name: "Claudio Souza",
+    img: "/professionals/male_professional_2.png",
   },
 ];
 
@@ -57,7 +50,7 @@ export default function ProfissionaisPage() {
               className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-sm ring-1 ring-black/5"
               aria-label="Voltar para serviços"
             >
-              <span className="text-lg">←</span>
+              <ArrowLeft className="h-5 w-5" aria-hidden />
             </Link>
             <BrandMark size={44} tone="light" />
             <div>
@@ -70,7 +63,7 @@ export default function ProfissionaisPage() {
             </div>
           </div>
           <button className="flex h-9 w-9 items-center justify-center rounded-full bg-white shadow-sm ring-1 ring-black/5">
-            <span className="text-lg">⌕</span>
+            <Search className="h-5 w-5" aria-hidden />
           </button>
         </header>
 
