@@ -1,5 +1,6 @@
 "use client";
 
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import type { TouchEvent } from "react";
 
@@ -142,7 +143,7 @@ export function WorkGallery({
               className="absolute right-3 top-3 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-lg font-semibold text-neutral-700 shadow"
               aria-label="Fechar imagem ampliada"
             >
-              ×
+              <X className="h-4 w-4" aria-hidden />
             </button>
             <button
               type="button"
@@ -150,7 +151,7 @@ export function WorkGallery({
               className="absolute left-3 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-lg font-semibold text-neutral-700 shadow md:flex"
               aria-label="Imagem anterior"
             >
-              ‹
+              <ChevronLeft className="h-5 w-5" aria-hidden />
             </button>
             <button
               type="button"
@@ -158,7 +159,7 @@ export function WorkGallery({
               className="absolute right-3 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-lg font-semibold text-neutral-700 shadow md:flex"
               aria-label="Próxima imagem"
             >
-              ›
+              <ChevronRight className="h-5 w-5" aria-hidden />
             </button>
               <img
                 key={activeImage.id}
