@@ -2,9 +2,10 @@
 
 import { BrandMark } from "@/components/BrandMark";
 import { ScheduleDrawer, type DayOption } from "@/components/ScheduleDrawer";
+import { WorkGallery, type WorkGalleryItem } from "@/components/WorkGallery";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 
 const days: DayOption[] = [
   {
@@ -29,7 +30,7 @@ const days: DayOption[] = [
   },
 ];
 
-const gallery = [
+const gallery: WorkGalleryItem[] = [
   { id: "barba-1", src: "/servicos/barba.png", alt: "Barba" },
   { id: "platinado-1", src: "/servicos/platinado.png", alt: "Platinado" },
   { id: "kids-1", src: "/servicos/kids.png", alt: "Corte infantil" },
@@ -62,53 +63,13 @@ const professional = {
 
 export default function AgendamentoPage() {
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [activeImageIndex, setActiveImageIndex] = useState<number | null>(
-    null
-  );
   const [selectedDay, setSelectedDay] = useState<DayOption>(days[2]);
   const [selectedTime, setSelectedTime] = useState(days[2].times[0]);
-  const touchStartX = useRef<number | null>(null);
-  const touchEndX = useRef<number | null>(null);
 
   const selectionText = useMemo(
     () => `${selectedDay.label}, ${selectedDay.date} · ${selectedTime}`,
     [selectedDay, selectedTime]
   );
-
-  const activeImage =
-    activeImageIndex === null ? null : gallery[activeImageIndex];
-
-  const handlePrevImage = () => {
-    if (activeImageIndex === null) return;
-    setActiveImageIndex(
-      (activeImageIndex - 1 + gallery.length) % gallery.length
-    );
-  };
-
-  const handleNextImage = () => {
-    if (activeImageIndex === null) return;
-    setActiveImageIndex((activeImageIndex + 1) % gallery.length);
-  };
-
-  const handleTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
-    touchStartX.current = event.touches[0]?.clientX ?? null;
-    touchEndX.current = null;
-  };
-
-  const handleTouchMove = (event: React.TouchEvent<HTMLDivElement>) => {
-    touchEndX.current = event.touches[0]?.clientX ?? null;
-  };
-
-  const handleTouchEnd = () => {
-    if (touchStartX.current === null || touchEndX.current === null) return;
-    const deltaX = touchStartX.current - touchEndX.current;
-    const threshold = 40;
-    if (deltaX > threshold) {
-      handleNextImage();
-    } else if (deltaX < -threshold) {
-      handlePrevImage();
-    }
-  };
 
   return (
     <div className="relative min-h-screen overflow-x-hidden bg-gradient-to-b from-orange-50 via-white to-rose-50 text-neutral-900">
@@ -161,84 +122,8 @@ export default function AgendamentoPage() {
             </div>
           </section>
 
-          <section className="space-y-3">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-xs uppercase tracking-[0.2em] text-neutral-400">
-                  Galeria
-                </p>
-                <h3 className="text-lg font-semibold text-neutral-900">
-                  Trabalhos recentes
-                </h3>
-              </div>
-            </div>
-            <div className="-mx-4 grid grid-cols-3 gap-2 px-4">
-              {gallery.map((item, index) => (
-                <button
-                  key={item.id}
-                  type="button"
-                  onClick={() => setActiveImageIndex(index)}
-                  className="group aspect-square w-full overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
-                >
-                  <img
-                    src={item.src}
-                    alt={item.alt}
-                    className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
-                    loading="lazy"
-                  />
-                </button>
-              ))}
-            </div>
-          </section>
+          <WorkGallery items={gallery} />
         </main>
-
-        {activeImage ? (
-          <div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4 py-10"
-            role="dialog"
-            aria-modal="true"
-            aria-label="Imagem ampliada"
-            onClick={() => setActiveImageIndex(null)}
-          >
-            <div
-              className="relative w-full max-w-md"
-              onTouchStart={handleTouchStart}
-              onTouchMove={handleTouchMove}
-              onTouchEnd={handleTouchEnd}
-              onClick={(event) => event.stopPropagation()}
-            >
-              <button
-                type="button"
-                onClick={() => setActiveImageIndex(null)}
-                className="absolute right-3 top-3 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-lg font-semibold text-neutral-700 shadow"
-                aria-label="Fechar imagem ampliada"
-              >
-                ×
-              </button>
-              <button
-                type="button"
-                onClick={handlePrevImage}
-                className="absolute left-3 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-lg font-semibold text-neutral-700 shadow md:flex"
-                aria-label="Imagem anterior"
-              >
-                ‹
-              </button>
-              <button
-                type="button"
-                onClick={handleNextImage}
-                className="absolute right-3 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-lg font-semibold text-neutral-700 shadow md:flex"
-                aria-label="Próxima imagem"
-              >
-                ›
-              </button>
-              <img
-                src={activeImage.src}
-                alt={activeImage.alt}
-                className="max-h-[80vh] w-full rounded-3xl object-cover shadow-2xl"
-              />
-            </div>
-          </div>
-        ) : null}
 
         <ScheduleDrawer
           open={drawerOpen}
