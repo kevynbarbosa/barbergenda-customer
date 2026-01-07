@@ -21,6 +21,7 @@ export function WorkGallery({
   eyebrow = "Galeria",
 }: WorkGalleryProps) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [direction, setDirection] = useState<"next" | "prev">("next");
   const touchStartX = useRef<number | null>(null);
   const touchEndX = useRef<number | null>(null);
 
@@ -28,11 +29,13 @@ export function WorkGallery({
 
   const handlePrevImage = () => {
     if (activeIndex === null || items.length === 0) return;
+    setDirection("prev");
     setActiveIndex((activeIndex - 1 + items.length) % items.length);
   };
 
   const handleNextImage = () => {
     if (activeIndex === null || items.length === 0) return;
+    setDirection("next");
     setActiveIndex((activeIndex + 1) % items.length);
   };
 
@@ -76,7 +79,14 @@ export function WorkGallery({
           <figure key={item.id} className="m-0">
             <button
               type="button"
-              onClick={() => setActiveIndex(index)}
+              onClick={() => {
+                if (activeIndex !== null) {
+                  setDirection(index > activeIndex ? "next" : "prev");
+                } else {
+                  setDirection("next");
+                }
+                setActiveIndex(index);
+              }}
               className="group aspect-square w-full overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
               aria-label={`Ver imagem: ${item.alt}`}
             >
@@ -134,7 +144,11 @@ export function WorkGallery({
               key={activeImage.id}
               src={activeImage.src}
               alt={activeImage.alt}
-              className="max-h-[80vh] w-full rounded-3xl object-cover shadow-2xl animate-in fade-in-0 zoom-in-95 duration-200"
+              className={`max-h-[80vh] w-full rounded-3xl object-cover shadow-2xl animate-in fade-in-0 duration-200 ${
+                direction === "next"
+                  ? "slide-in-from-right-6"
+                  : "slide-in-from-left-6"
+              }`}
             />
           </div>
         </div>
