@@ -5,7 +5,7 @@ import {
   ProfessionalCard,
   type Professional,
 } from "@/components/ProfessionalCard";
-import { ArrowLeft, Search } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -62,9 +62,6 @@ export default function ProfissionaisPage() {
               </h1>
             </div>
           </div>
-          <button className="flex h-9 w-9 items-center justify-center rounded-full bg-white shadow-sm ring-1 ring-black/5">
-            <Search className="h-5 w-5" aria-hidden />
-          </button>
         </header>
 
         <main className="mt-6 space-y-6">
@@ -99,7 +96,7 @@ export default function ProfissionaisPage() {
             </span>
           </div>
           <Link
-            href="/horarios"
+            href="/agendar"
             className="flex w-full items-center justify-center rounded-full bg-neutral-900 px-6 py-4 text-base font-semibold text-white shadow-xl shadow-black/15 transition hover:translate-y-0.5"
           >
             Continuar para horários

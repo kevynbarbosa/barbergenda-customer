@@ -2,7 +2,7 @@
 
 import { BrandMark } from "@/components/BrandMark";
 import { ScheduleDrawer, type DayOption } from "@/components/ScheduleDrawer";
-import { ArrowLeft, MapPin, Star } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 
@@ -30,10 +30,27 @@ const days: DayOption[] = [
 ];
 
 const gallery = [
-  { src: "/servicos/barba.png", alt: "Barba" },
-  { src: "/servicos/platinado.png", alt: "Platinado" },
-  { src: "/servicos/kids.png", alt: "Corte infantil" },
-  { src: "/professionals/male_professional_2.png", alt: "Detalhe" },
+  { id: "barba-1", src: "/servicos/barba.png", alt: "Barba" },
+  { id: "platinado-1", src: "/servicos/platinado.png", alt: "Platinado" },
+  { id: "kids-1", src: "/servicos/kids.png", alt: "Corte infantil" },
+  {
+    id: "detalhe-1",
+    src: "/professionals/male_professional_2.png",
+    alt: "Detalhe",
+  },
+  { id: "barba-2", src: "/servicos/barba.png", alt: "Barba em close" },
+  {
+    id: "platinado-2",
+    src: "/servicos/platinado.png",
+    alt: "Platinado finalizado",
+  },
+  { id: "kids-2", src: "/servicos/kids.png", alt: "Corte infantil fresh" },
+  {
+    id: "detalhe-2",
+    src: "/professionals/male_professional_2.png",
+    alt: "Detalhe da lâmina",
+  },
+  { id: "barba-3", src: "/servicos/barba.png", alt: "Barba alinhada" },
 ];
 
 const professional = {
@@ -83,24 +100,23 @@ export default function AgendamentoPage() {
         </header>
 
         <main className="mt-6 space-y-6">
-          <section className="flex items-center gap-4 rounded-2xl border border-orange-100 bg-white/90 p-4 shadow-sm shadow-orange-100/40">
-            <div className="h-14 w-14 overflow-hidden rounded-2xl bg-neutral-200">
-              <img
-                src={professional.img}
-                alt={professional.name}
-                className="h-full w-full object-cover"
-              />
+          <section className="space-y-4">
+            <div className="relative -mx-4 overflow-hidden rounded-[28px] border border-orange-100 bg-white/90 shadow-sm shadow-orange-100/40">
+              <div className="aspect-[4/3] w-full bg-neutral-200">
+                <img
+                  src={professional.img}
+                  alt={professional.name}
+                  className="h-full w-full object-cover"
+                />
+              </div>
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-black/0 to-transparent" />
             </div>
-            <div className="flex-1 space-y-1">
-              <h2 className="text-base font-semibold text-neutral-900">
+            <div className="space-y-2">
+              <h2 className="text-xl font-semibold text-neutral-900">
                 {professional.name}
               </h2>
               <p className="text-sm text-neutral-600">
                 {professional.specialty}
-              </p>
-              <p className="flex items-center gap-1 text-xs font-semibold text-neutral-500">
-                <Star className="h-4 w-4 text-orange-500" aria-hidden />
-                {professional.rating}
               </p>
             </div>
           </section>
@@ -116,11 +132,11 @@ export default function AgendamentoPage() {
                 </h3>
               </div>
             </div>
-            <div className="-mx-4 flex gap-3 overflow-x-auto px-4 pb-1">
+            <div className="-mx-4 grid grid-cols-3 gap-2 px-4">
               {gallery.map((item) => (
                 <div
-                  key={item.alt}
-                  className="h-24 w-24 shrink-0 overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-sm"
+                  key={item.id}
+                  className="aspect-square w-full overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm"
                 >
                   <img
                     src={item.src}
@@ -130,46 +146,6 @@ export default function AgendamentoPage() {
                   />
                 </div>
               ))}
-            </div>
-          </section>
-
-          <section className="space-y-3 rounded-2xl border border-orange-100 bg-white/90 p-4 shadow-sm shadow-orange-100/40">
-            <div className="flex items-center gap-2 text-sm font-semibold text-neutral-900">
-              <MapPin className="h-4 w-4 text-orange-500" aria-hidden />
-              Unidade Jardim Europa
-            </div>
-            <div className="h-28 w-full overflow-hidden rounded-xl border border-neutral-100 bg-neutral-100" />
-            <p className="text-sm text-neutral-600">
-              Atendimento de segunda a sábado, 9h às 22h. Av. Principal, 123 -
-              Sala 04.
-            </p>
-            <button className="flex w-fit items-center gap-2 rounded-full bg-neutral-900 px-4 py-2 text-xs font-semibold text-white shadow transition hover:-translate-y-0.5">
-              Ver no mapa
-            </button>
-          </section>
-
-          <section className="space-y-3 rounded-2xl border border-orange-100 bg-white/90 p-4 shadow-sm shadow-orange-100/40">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-xs uppercase tracking-[0.2em] text-neutral-400">
-                  Horários
-                </p>
-                <h3 className="text-lg font-semibold text-neutral-900">
-                  Escolha data e hora
-                </h3>
-                <p className="text-sm text-neutral-600">
-                  Selecione o melhor horário para você.
-                </p>
-              </div>
-              <button
-                onClick={() => setDrawerOpen(true)}
-                className="rounded-full border border-neutral-200 bg-white px-3 py-2 text-xs font-semibold text-neutral-800 shadow-sm transition hover:-translate-y-0.5"
-              >
-                Abrir agenda
-              </button>
-            </div>
-            <div className="rounded-2xl border border-neutral-100 bg-neutral-50 px-4 py-3 text-sm text-neutral-700">
-              {selectionText}
             </div>
           </section>
         </main>

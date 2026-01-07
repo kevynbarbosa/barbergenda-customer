@@ -52,11 +52,11 @@ export default function Home() {
             <Link href="/profissionais" className="transition hover:text-white">
               Profissionais
             </Link>
-            <Link href="/horarios" className="transition hover:text-white">
+            <Link href="/agendar" className="transition hover:text-white">
               Horários
             </Link>
             <Link
-              href="/horarios"
+              href="/agendar"
               className="rounded-full bg-amber-400 px-4 py-2 text-sm font-semibold text-neutral-950 shadow-[0_10px_40px_-20px_rgba(251,191,36,0.6)] transition hover:-translate-y-0.5 hover:bg-amber-300"
             >
               Agendar agora
@@ -83,7 +83,7 @@ export default function Home() {
               </div>
               <div className="flex flex-wrap items-center gap-3">
                 <Link
-                  href="/horarios"
+                  href="/agendar"
                   className="rounded-full bg-amber-400 px-6 py-3 text-sm font-semibold text-neutral-950 shadow-[0_16px_50px_-24px_rgba(251,191,36,0.7)] transition hover:-translate-y-0.5 hover:bg-amber-300"
                 >
                   Reservar horário
@@ -226,7 +226,7 @@ export default function Home() {
                 title: "Horários",
                 desc: "Agende de onde estiver com confirmações rápidas e sem filas.",
                 cta: "Reservar agora",
-                href: "/horarios",
+                href: "/agendar",
               },
             ].map((card) => (
               <div
@@ -265,7 +265,7 @@ export default function Home() {
               </div>
               <div className="flex flex-wrap items-center gap-3">
                 <Link
-                  href="/horarios"
+                  href="/agendar"
                   className="rounded-full bg-amber-400 px-6 py-3 text-sm font-semibold text-neutral-950 shadow-[0_16px_50px_-24px_rgba(251,191,36,0.7)] transition hover:-translate-y-0.5 hover:bg-amber-300"
                 >
                   Garantir horário
