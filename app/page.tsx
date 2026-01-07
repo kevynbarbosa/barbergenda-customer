@@ -1,3 +1,4 @@
+import { BookingBar } from "@/components/BookingBar";
 import Link from "next/link";
 
 const stats = [
@@ -23,7 +24,7 @@ const highlights = [
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen bg-neutral-950 text-neutral-50">
+    <div className="relative min-h-screen overflow-x-hidden bg-neutral-950 text-neutral-50">
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-amber-200/15 via-amber-500/5 to-transparent blur-3xl" />
         <div className="absolute left-0 top-20 h-72 w-72 -translate-x-1/3 rounded-full bg-amber-600/10 blur-[120px]" />
@@ -281,31 +282,7 @@ export default function Home() {
           </section>
         </main>
 
-        <div className="fixed inset-x-0 bottom-0 z-50 bg-gradient-to-t from-neutral-950 via-neutral-950/95 to-neutral-950/70 shadow-[0_-18px_60px_-30px_rgba(0,0,0,0.65)]">
-          <div className="mx-auto max-w-6xl px-4 pb-4 pt-3 sm:px-6 lg:px-8">
-            <Link
-              href="/horarios"
-              className="group flex items-center justify-between gap-3 rounded-2xl border border-white/10 bg-amber-400 px-4 py-3 text-neutral-950 shadow-[0_14px_40px_-22px_rgba(251,191,36,0.7)] transition hover:-translate-y-0.5 hover:bg-amber-300"
-            >
-              <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-amber-500/40 bg-white/40 text-sm font-semibold">
-                  BB
-                </div>
-                <div>
-                  <p className="text-[11px] uppercase tracking-[0.18em] text-neutral-900/70">
-                    Agendar horário
-                  </p>
-                  <p className="text-sm font-semibold text-neutral-950">
-                    Reserve em minutos, sem fila.
-                  </p>
-                </div>
-              </div>
-              <span className="text-base font-semibold text-neutral-900 transition group-hover:translate-x-0.5">
-                →
-              </span>
-            </Link>
-          </div>
-        </div>
+        <BookingBar />
       </div>
     </div>
   );

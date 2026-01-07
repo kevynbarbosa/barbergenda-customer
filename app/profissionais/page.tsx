@@ -1,17 +1,10 @@
 "use client";
 
+import { ProfessionalCard, type Professional } from "@/components/ProfessionalCard";
 import Link from "next/link";
 import { useState } from "react";
 
-type Pro = {
-  id: string;
-  name: string;
-  role: string;
-  rating: string;
-  tags: string[];
-};
-
-const pros: Pro[] = [
+const pros: Professional[] = [
   {
     id: "nate",
     name: "Nate Black",
@@ -43,7 +36,7 @@ const pros: Pro[] = [
 ];
 
 export default function ProfissionaisPage() {
-  const [selected, setSelected] = useState<string>("nate");
+  const [selected, setSelected] = useState<string>("");
 
   return (
     <div className="relative min-h-screen bg-gradient-to-b from-orange-50 via-white to-rose-50 text-neutral-900">
@@ -91,58 +84,14 @@ export default function ProfissionaisPage() {
             </div>
 
             <div className="space-y-4">
-              {pros.map((pro) => {
-                const isSelected = pro.id === selected;
-                return (
-                  <button
-                    key={pro.id}
-                    onClick={() => setSelected(pro.id)}
-                    className={`group block w-full rounded-2xl border px-4 py-4 text-left transition ${
-                      isSelected
-                        ? "border-orange-500 bg-orange-50 shadow-lg shadow-orange-100"
-                        : "border-neutral-200 bg-white/95 hover:border-neutral-400 hover:shadow-sm"
-                    }`}
-                  >
-                    <div className="flex items-start gap-3 sm:gap-4">
-                      <div className="h-14 w-14 shrink-0 rounded-2xl bg-neutral-200" />
-                      <div className="flex-1 space-y-2">
-                        <div className="flex items-start justify-between gap-2">
-                          <div className="space-y-1">
-                            <h3 className="text-base font-semibold text-neutral-900">
-                              {pro.name}
-                            </h3>
-                            <p className="text-sm text-neutral-600">
-                              {pro.role}
-                            </p>
-                          </div>
-                          <span
-                            className={`flex h-6 w-6 items-center justify-center rounded-full border text-sm transition ${
-                              isSelected
-                                ? "border-orange-500 bg-orange-500 text-white"
-                                : "border-neutral-300 text-transparent"
-                            }`}
-                          >
-                            ✓
-                          </span>
-                        </div>
-                        <p className="text-xs font-semibold text-neutral-500">
-                          {pro.rating}
-                        </p>
-                        <div className="flex flex-wrap items-center gap-2 text-xs font-semibold text-neutral-500">
-                          {pro.tags.map((tag) => (
-                            <span
-                              key={tag}
-                              className="rounded-full bg-neutral-100 px-2 py-1"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </button>
-                );
-              })}
+              {pros.map((pro) => (
+                <ProfessionalCard
+                  key={pro.id}
+                  professional={pro}
+                  selected={pro.id === selected}
+                  onSelect={setSelected}
+                />
+              ))}
             </div>
           </section>
         </main>
