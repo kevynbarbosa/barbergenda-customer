@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { TouchEvent } from "react";
 
 export type WorkGalleryItem = {
@@ -63,6 +63,26 @@ export function WorkGallery({
     return null;
   }
 
+  useEffect(() => {
+    if (activeIndex === null) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setActiveIndex(null);
+        return;
+      }
+      if (event.key === "ArrowRight") {
+        handleNextImage();
+      }
+      if (event.key === "ArrowLeft") {
+        handlePrevImage();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [activeIndex, items.length]);
+
   return (
     <section className="space-y-3" aria-label="Galeria de trabalhos">
       <div className="flex items-center justify-between">
@@ -101,21 +121,21 @@ export function WorkGallery({
         ))}
       </div>
 
-      {activeImage ? (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4 py-10"
-          role="dialog"
+        {activeImage ? (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4 py-10"
+            role="dialog"
           aria-modal="true"
           aria-label="Imagem ampliada"
           onClick={() => setActiveIndex(null)}
         >
-          <div
-            className="relative w-full max-w-md touch-pan-y"
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={handleTouchEnd}
-            onClick={(event) => event.stopPropagation()}
-          >
+            <div
+              className="relative w-full max-w-md touch-pan-y"
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+              onClick={(event) => event.stopPropagation()}
+            >
             <button
               type="button"
               onClick={() => setActiveIndex(null)}
@@ -140,19 +160,22 @@ export function WorkGallery({
             >
               ›
             </button>
-            <img
-              key={activeImage.id}
-              src={activeImage.src}
-              alt={activeImage.alt}
-              className={`max-h-[80vh] w-full rounded-3xl object-cover shadow-2xl animate-in fade-in-0 duration-200 ${
-                direction === "next"
-                  ? "slide-in-from-right-6"
-                  : "slide-in-from-left-6"
-              }`}
-            />
+              <img
+                key={activeImage.id}
+                src={activeImage.src}
+                alt={activeImage.alt}
+                className={`max-h-[80vh] w-full rounded-3xl object-cover shadow-2xl animate-in fade-in-0 duration-200 ${
+                  direction === "next"
+                    ? "slide-in-from-right-6"
+                    : "slide-in-from-left-6"
+                }`}
+              />
+              <p className="mt-3 text-center text-xs text-white/80">
+                {activeImage.alt}
+              </p>
+            </div>
           </div>
-        </div>
-      ) : null}
+        ) : null}
     </section>
   );
 }
