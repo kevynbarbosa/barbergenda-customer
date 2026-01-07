@@ -62,6 +62,10 @@ const professional = {
 
 export default function AgendamentoPage() {
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [activeImage, setActiveImage] = useState<{
+    src: string;
+    alt: string;
+  } | null>(null);
   const [selectedDay, setSelectedDay] = useState<DayOption>(days[2]);
   const [selectedTime, setSelectedTime] = useState(days[2].times[0]);
 
@@ -134,21 +138,54 @@ export default function AgendamentoPage() {
             </div>
             <div className="-mx-4 grid grid-cols-3 gap-2 px-4">
               {gallery.map((item) => (
-                <div
+                <button
                   key={item.id}
-                  className="aspect-square w-full overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm"
+                  type="button"
+                  onClick={() =>
+                    setActiveImage({ src: item.src, alt: item.alt })
+                  }
+                  className="group aspect-square w-full overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
                 >
                   <img
                     src={item.src}
                     alt={item.alt}
-                    className="h-full w-full object-cover"
+                    className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
                     loading="lazy"
                   />
-                </div>
+                </button>
               ))}
             </div>
           </section>
         </main>
+
+        {activeImage ? (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4 py-10"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Imagem ampliada"
+            onClick={() => setActiveImage(null)}
+          >
+            <div
+              className="relative w-full max-w-md"
+              onClick={(event) => event.stopPropagation()}
+            >
+              <button
+                type="button"
+                onClick={() => setActiveImage(null)}
+                className="absolute right-3 top-3 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-lg font-semibold text-neutral-700 shadow"
+                aria-label="Fechar imagem ampliada"
+              >
+                ×
+              </button>
+              <img
+                src={activeImage.src}
+                alt={activeImage.alt}
+                className="max-h-[80vh] w-full rounded-3xl object-cover shadow-2xl"
+              />
+            </div>
+          </div>
+        ) : null}
 
         <ScheduleDrawer
           open={drawerOpen}
