@@ -1,5 +1,6 @@
 "use client";
 
+import { BrandMark } from "@/components/BrandMark";
 import Link from "next/link";
 
 type BookingBarProps = {
@@ -23,9 +24,12 @@ export function BookingBar({
           className="group flex w-full items-center justify-between gap-3 rounded-2xl border border-white/10 bg-amber-400 px-4 py-3 text-neutral-950 shadow-[0_14px_40px_-22px_rgba(251,191,36,0.7)] transition hover:-translate-y-0.5 hover:bg-amber-300"
         >
           <div className="flex items-center gap-3 overflow-hidden">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-amber-500/40 bg-white/40 text-sm font-semibold">
-              {badge}
-            </div>
+            <BrandMark
+              size={40}
+              tone="light"
+              className="shrink-0 rounded-xl border border-amber-500/40 bg-white/50"
+              alt={badge}
+            />
             <div className="min-w-0">
               <p className="text-[11px] uppercase tracking-[0.18em] text-neutral-900/70">
                 {title}

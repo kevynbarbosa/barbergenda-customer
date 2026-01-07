@@ -1,4 +1,5 @@
 import { BookingBar } from "@/components/BookingBar";
+import { BrandMark } from "@/components/BrandMark";
 import Link from "next/link";
 
 const stats = [
@@ -34,9 +35,7 @@ export default function Home() {
       <div className="relative mx-auto max-w-6xl px-4 pb-24 pt-10 sm:px-6 lg:px-8">
         <header className="flex items-center justify-between border-b border-white/10 pb-6">
           <div className="flex items-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/15">
-              <span className="text-lg font-semibold tracking-tight">BB</span>
-            </div>
+            <BrandMark size={64} tone="dark" />
             <div>
               <p className="text-[11px] uppercase tracking-[0.28em] text-amber-100/80">
                 Barbergenda

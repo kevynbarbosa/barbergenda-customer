@@ -7,6 +7,7 @@ export type Service = {
   duration: string;
   price: string;
   badge?: string;
+  img?: string;
 };
 
 type ServiceCardProps = {
@@ -27,7 +28,17 @@ export function ServiceCard({ service, selected, onToggle }: ServiceCardProps) {
       }`}
     >
       <div className="flex items-start gap-3 sm:gap-4">
-        <div className="h-14 w-14 shrink-0 rounded-2xl bg-neutral-200" />
+        <div className="h-14 w-14 shrink-0 overflow-hidden rounded-2xl bg-neutral-200">
+          {service.img ? (
+            // keep the visual footprint identical; constrain to the existing square
+            <img
+              src={service.img}
+              alt={service.name}
+              className="h-full w-full object-cover"
+              loading="lazy"
+            />
+          ) : null}
+        </div>
         <div className="flex-1 space-y-2">
           <div className="flex flex-wrap items-center gap-2">
             <h3 className="text-base font-semibold text-neutral-900">

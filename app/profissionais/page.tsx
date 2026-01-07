@@ -1,6 +1,10 @@
 "use client";
 
-import { ProfessionalCard, type Professional } from "@/components/ProfessionalCard";
+import { BrandMark } from "@/components/BrandMark";
+import {
+  ProfessionalCard,
+  type Professional,
+} from "@/components/ProfessionalCard";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -55,9 +59,7 @@ export default function ProfissionaisPage() {
             >
               <span className="text-lg">←</span>
             </Link>
-            <div className="flex h-11 w-11 items-center justify-center rounded-full bg-white/90 shadow-sm ring-1 ring-black/5">
-              <span className="text-base font-semibold tracking-tight">BB</span>
-            </div>
+            <BrandMark size={44} tone="light" />
             <div>
               <p className="text-[10px] uppercase tracking-[0.3em] text-neutral-400">
                 Barbergenda

@@ -1,5 +1,6 @@
 "use client";
 
+import { BrandMark } from "@/components/BrandMark";
 import { ServiceCard, type Service } from "@/components/ServiceCard";
 import Link from "next/link";
 import { useMemo, useState } from "react";
@@ -12,6 +13,7 @@ const services: Service[] = [
     duration: "45 min",
     price: "R$ 90",
     badge: "Mais escolhido",
+    img: "/servicos/corte.png",
   },
   {
     id: "fade",
@@ -19,6 +21,7 @@ const services: Service[] = [
     desc: "Laterais na zero ou baixo, degradê suave e acabamento detalhado.",
     duration: "50 min",
     price: "R$ 100",
+    img: "/servicos/platinado.png",
   },
   {
     id: "barba",
@@ -26,6 +29,7 @@ const services: Service[] = [
     desc: "Navalha quente, toalha aromática e modelagem conforme seu rosto.",
     duration: "35 min",
     price: "R$ 75",
+    img: "/servicos/barba.png",
   },
   {
     id: "combo",
@@ -34,6 +38,7 @@ const services: Service[] = [
     duration: "75 min",
     price: "R$ 150",
     badge: "Combo",
+    img: "/servicos/combo.png",
   },
   {
     id: "kids",
@@ -41,6 +46,7 @@ const services: Service[] = [
     desc: "Ritmo leve, atenção extra e finalização com zero pressa.",
     duration: "40 min",
     price: "R$ 80",
+    img: "/servicos/kids.png",
   },
 ];
 
@@ -57,7 +63,7 @@ export default function ServicosPage() {
   }, [selected]);
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-b from-orange-50 via-white to-rose-50 text-neutral-900">
+    <div className="relative min-h-screen bg-linear-to-b from-orange-50 via-white to-rose-50 text-neutral-900">
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-0 top-20 h-52 w-52 rounded-full bg-orange-200/60 blur-3xl" />
         <div className="absolute right-10 top-10 h-48 w-48 rounded-full bg-rose-200/60 blur-3xl" />
@@ -73,9 +79,7 @@ export default function ServicosPage() {
             >
               <span className="text-lg">←</span>
             </Link>
-            <div className="flex h-11 w-11 items-center justify-center rounded-full bg-white/90 shadow-sm ring-1 ring-black/5">
-              <span className="text-base font-semibold tracking-tight">BB</span>
-            </div>
+            <BrandMark size={44} tone="light" />
             <div>
               <p className="text-[10px] uppercase tracking-[0.3em] text-neutral-400">
                 Barbergenda
@@ -85,9 +89,6 @@ export default function ServicosPage() {
               </h1>
             </div>
           </div>
-          <button className="flex h-9 w-9 items-center justify-center rounded-full bg-white shadow-sm ring-1 ring-black/5">
-            <span className="text-lg">⌕</span>
-          </button>
         </header>
 
         <main className="mt-6 space-y-6">
