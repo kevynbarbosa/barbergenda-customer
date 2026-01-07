@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { BrandMark } from "@/components/BrandMark";
 import {
   Drawer,
   DrawerClose,
@@ -10,7 +10,9 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { useState } from "react";
+import { ArrowLeft, MapPin, Star, Watch } from "lucide-react";
+import Link from "next/link";
+import { useMemo, useState } from "react";
 
 type Day = {
   label: string;
@@ -64,105 +66,146 @@ const days: Day[] = [
 ];
 
 const gallery = [
-  { src: "/placeholder/hair1.jpg", alt: "Corte 1" },
-  { src: "/placeholder/hair2.jpg", alt: "Corte 2" },
-  { src: "/placeholder/hair3.jpg", alt: "Corte 3" },
-  { src: "/placeholder/hair4.jpg", alt: "Corte 4" },
+  { src: "/servicos/barba.png", alt: "Barba" },
+  { src: "/servicos/platinado.png", alt: "Platinado" },
+  { src: "/servicos/kids.png", alt: "Corte infantil" },
+  { src: "/professionals/male_professional_2.png", alt: "Detalhe" },
 ];
 
-export default function AgendamentoDrawerPage() {
+const professional = {
+  name: "Nate Black",
+  img: "/professionals/male_professional_1.png",
+  rating: "4.9 · 320 avaliações",
+  specialty: "Fade, barba de precisão e finalização clássica",
+};
+
+export default function AgendamentoPage() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [selectedDay, setSelectedDay] = useState<Day>(days[2]);
   const [selectedTime, setSelectedTime] = useState("11-12");
 
+  const selectionText = useMemo(
+    () => `${selectedDay.label}, ${selectedDay.date} · ${selectedTime}`,
+    [selectedDay, selectedTime]
+  );
+
   return (
-    <div className="relative min-h-screen bg-linear-to-b from-neutral-50 to-neutral-100 text-neutral-900">
+    <div className="relative min-h-screen overflow-x-hidden bg-gradient-to-b from-orange-50 via-white to-rose-50 text-neutral-900">
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute right-10 top-10 h-40 w-40 rounded-full bg-neutral-200/80 blur-3xl" />
-        <div className="absolute left-0 top-32 h-48 w-48 rounded-full bg-neutral-300/60 blur-3xl" />
+        <div className="absolute left-0 top-20 h-52 w-52 rounded-full bg-orange-200/60 blur-3xl" />
+        <div className="absolute right-10 top-10 h-48 w-48 rounded-full bg-rose-200/60 blur-3xl" />
       </div>
 
-      <div className="relative mx-auto flex min-h-screen max-w-md flex-col px-4 pb-24 pt-6">
-        <header className="flex items-center justify-between text-sm font-semibold text-neutral-700">
-          <div className="flex items-center gap-2">
+      <div className="relative mx-auto flex min-h-screen max-w-md flex-col px-4 pb-28 pt-8">
+        <header className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
             <Link
               href="/profissionais"
-              className="flex h-9 w-9 items-center justify-center rounded-full bg-white shadow-sm ring-1 ring-black/5"
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-sm ring-1 ring-black/5"
               aria-label="Voltar para profissionais"
             >
-              <span className="text-lg">←</span>
+              <ArrowLeft className="h-5 w-5" aria-hidden />
             </Link>
-            <span className="text-base font-semibold">The Sharp Side</span>
+            <BrandMark size={44} tone="light" />
+            <div>
+              <p className="text-[10px] uppercase tracking-[0.3em] text-neutral-400">
+                Barbergenda
+              </p>
+              <h1 className="text-lg font-semibold tracking-tight">
+                Detalhes do profissional
+              </h1>
+            </div>
           </div>
         </header>
 
         <main className="mt-6 space-y-6">
-          <section className="flex items-center gap-4 rounded-2xl bg-white p-4 shadow-sm ring-1 ring-black/5">
-            <div className="h-12 w-12 rounded-full bg-linear-to-br from-neutral-300 to-neutral-200" />
-            <div className="flex-1">
-              <div className="flex items-center gap-2">
-                <h1 className="text-lg font-semibold tracking-tight">
-                  Nate black
-                </h1>
-              </div>
+          <section className="flex items-center gap-4 rounded-2xl border border-orange-100 bg-white/90 p-4 shadow-sm shadow-orange-100/40">
+            <div className="h-14 w-14 overflow-hidden rounded-2xl bg-neutral-200">
+              <img
+                src={professional.img}
+                alt={professional.name}
+                className="h-full w-full object-cover"
+              />
+            </div>
+            <div className="flex-1 space-y-1">
+              <h2 className="text-base font-semibold text-neutral-900">
+                {professional.name}
+              </h2>
+              <p className="text-sm text-neutral-600">
+                {professional.specialty}
+              </p>
+              <p className="flex items-center gap-1 text-xs font-semibold text-neutral-500">
+                <Star className="h-4 w-4 text-orange-500" aria-hidden />
+                {professional.rating}
+              </p>
             </div>
           </section>
 
-          <section className="space-y-3 rounded-2xl bg-white p-4 shadow-sm ring-1 ring-black/5">
+          <section className="space-y-3">
             <div className="flex items-center justify-between">
-              <h2 className="text-sm font-semibold text-neutral-800">
-                Photo Gallery
-              </h2>
-              <button className="text-xs font-semibold text-orange-500">
-                See more
-              </button>
+              <div>
+                <p className="text-xs uppercase tracking-[0.2em] text-neutral-400">
+                  Galeria
+                </p>
+                <h3 className="text-lg font-semibold text-neutral-900">
+                  Trabalhos recentes
+                </h3>
+              </div>
             </div>
             <div className="-mx-4 flex gap-3 overflow-x-auto px-4 pb-1">
               {gallery.map((item) => (
                 <div
                   key={item.alt}
-                  className="h-24 w-24 shrink-0 overflow-hidden rounded-xl bg-neutral-200"
-                />
+                  className="h-24 w-24 shrink-0 overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-sm"
+                >
+                  <img
+                    src={item.src}
+                    alt={item.alt}
+                    className="h-full w-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
               ))}
             </div>
           </section>
 
-          <section className="space-y-3 rounded-2xl bg-white p-4 shadow-sm ring-1 ring-black/5">
-            <h3 className="text-sm font-semibold text-neutral-800">
-              Barber shop
-            </h3>
-            <div className="h-28 w-full overflow-hidden rounded-xl bg-neutral-200" />
-            <div className="space-y-2 text-sm text-neutral-700">
-              <p>
-                <span className="font-semibold">Service:</span> Mon to Sat - 9am
-                to 10pm
-              </p>
-              <p>
-                <span className="font-semibold">Address:</span> 1201 Peachtree
-                St NE, Atlanta GA 30309
-              </p>
+          <section className="space-y-3 rounded-2xl border border-orange-100 bg-white/90 p-4 shadow-sm shadow-orange-100/40">
+            <div className="flex items-center gap-2 text-sm font-semibold text-neutral-900">
+              <MapPin className="h-4 w-4 text-orange-500" aria-hidden />
+              Unidade Jardim Europa
             </div>
-            <button className="flex w-fit items-center gap-2 rounded-full bg-neutral-900 px-4 py-2 text-xs font-semibold text-white shadow hover:-translate-y-0.5 transition">
-              Show on map
+            <div className="h-28 w-full overflow-hidden rounded-xl border border-neutral-100 bg-neutral-100" />
+            <p className="text-sm text-neutral-600">
+              Atendimento de segunda a sábado, 9h às 22h. Av. Principal, 123 -
+              Sala 04.
+            </p>
+            <button className="flex w-fit items-center gap-2 rounded-full bg-neutral-900 px-4 py-2 text-xs font-semibold text-white shadow transition hover:-translate-y-0.5">
+              Ver no mapa
             </button>
           </section>
 
-          <section className="space-y-3 rounded-2xl bg-white p-4 shadow-sm ring-1 ring-black/5">
+          <section className="space-y-3 rounded-2xl border border-orange-100 bg-white/90 p-4 shadow-sm shadow-orange-100/40">
             <div className="flex items-center justify-between">
-              <h3 className="text-sm font-semibold text-neutral-800">
-                Reviews
-              </h3>
-              <button className="text-xs font-semibold text-orange-500">
-                See all
+              <div>
+                <p className="text-xs uppercase tracking-[0.2em] text-neutral-400">
+                  Horários
+                </p>
+                <h3 className="text-lg font-semibold text-neutral-900">
+                  Escolha data e hora
+                </h3>
+                <p className="text-sm text-neutral-600">
+                  Selecione o melhor horário para você.
+                </p>
+              </div>
+              <button
+                onClick={() => setDrawerOpen(true)}
+                className="rounded-full border border-neutral-200 bg-white px-3 py-2 text-xs font-semibold text-neutral-800 shadow-sm transition hover:-translate-y-0.5"
+              >
+                Abrir agenda
               </button>
             </div>
-            <div className="flex items-center gap-3 rounded-xl bg-neutral-50 p-3">
-              <div className="h-10 w-10 rounded-full bg-neutral-200" />
-              <div className="flex-1">
-                <p className="text-sm font-semibold">David</p>
-                <p className="text-xs text-neutral-600">⭐ 5/5 · Excellent</p>
-              </div>
-              <span className="text-sm font-semibold text-green-600">✔</span>
+            <div className="rounded-2xl border border-neutral-100 bg-neutral-50 px-4 py-3 text-sm text-neutral-700">
+              {selectionText}
             </div>
           </section>
         </main>
@@ -171,20 +214,20 @@ export default function AgendamentoDrawerPage() {
           <div className="fixed inset-x-0 bottom-0 z-30 mx-auto max-w-md px-4 pb-6">
             <DrawerTrigger asChild>
               <button className="flex w-full items-center justify-center rounded-full bg-neutral-900 px-6 py-4 text-base font-semibold text-white shadow-xl shadow-black/15 transition hover:translate-y-0.5">
-                Book Now
+                Escolher horário
               </button>
             </DrawerTrigger>
           </div>
 
-          <DrawerContent className="border-none bg-white pb-5 pt-4 shadow-2xl ring-1 ring-black/10 data-[vaul-drawer-direction=bottom]:rounded-t-3xl data-[vaul-drawer-direction=bottom]:max-w-md data-[vaul-drawer-direction=bottom]:mx-auto">
+          <DrawerContent className="border-none bg-white pb-5 pt-4 shadow-2xl ring-1 ring-black/10 data-[vaul-drawer-direction=bottom]:mx-auto data-[vaul-drawer-direction=bottom]:max-w-md data-[vaul-drawer-direction=bottom]:rounded-t-3xl">
             <DrawerHeader className="px-5 pb-3 pt-0">
               <div className="flex items-center justify-between">
                 <DrawerTitle className="text-base font-semibold text-neutral-900">
-                  Appointment Time
+                  Selecionar horário
                 </DrawerTitle>
                 <DrawerClose
                   className="flex h-9 w-9 items-center justify-center rounded-full bg-neutral-100 text-lg font-semibold text-neutral-600"
-                  aria-label="Close drawer"
+                  aria-label="Fechar agenda"
                 >
                   ×
                 </DrawerClose>
@@ -192,9 +235,6 @@ export default function AgendamentoDrawerPage() {
             </DrawerHeader>
 
             <div className="space-y-4 border-t border-neutral-100 px-5 pb-3 pt-4">
-              <p className="text-sm text-neutral-600">
-                Select an appointment time that works best for you.
-              </p>
               <div className="flex gap-3 overflow-x-auto pb-1">
                 {days.map((day) => {
                   const isActive = day.label === selectedDay.label;
@@ -205,16 +245,16 @@ export default function AgendamentoDrawerPage() {
                         setSelectedDay(day);
                         setSelectedTime(day.times[0]);
                       }}
-                      className={`flex min-w-23 flex-col items-center rounded-2xl border px-3 py-2 text-xs font-semibold transition ${
+                      className={`flex min-w-24 flex-col items-center rounded-2xl border px-3 py-2 text-xs font-semibold transition ${
                         isActive
-                          ? "border-neutral-900 bg-neutral-900 text-white"
-                          : "border-neutral-200 bg-neutral-50 text-neutral-800 hover:border-neutral-400"
+                          ? "border-orange-500 bg-orange-50 text-orange-900 shadow shadow-orange-100"
+                          : "border-neutral-200 bg-white text-neutral-800 hover:border-neutral-400"
                       }`}
                     >
                       <span>{day.label}</span>
                       <span
                         className={
-                          isActive ? "text-white/80" : "text-neutral-500"
+                          isActive ? "text-orange-700" : "text-neutral-500"
                         }
                       >
                         {day.date}
@@ -223,6 +263,7 @@ export default function AgendamentoDrawerPage() {
                   );
                 })}
               </div>
+
               <div className="grid grid-cols-3 gap-2">
                 {selectedDay.times.map((time) => {
                   const active = time === selectedTime;
@@ -230,25 +271,27 @@ export default function AgendamentoDrawerPage() {
                     <button
                       key={time}
                       onClick={() => setSelectedTime(time)}
-                      className={`rounded-xl border px-3 py-2 text-sm font-semibold transition ${
+                      className={`flex items-center justify-center gap-2 rounded-xl border px-3 py-2 text-sm font-semibold transition ${
                         active
-                          ? "border-neutral-900 bg-neutral-900 text-white"
-                          : "border-neutral-200 bg-neutral-50 text-neutral-800 hover:border-neutral-400"
+                          ? "border-orange-500 bg-orange-50 text-orange-900 shadow-sm shadow-orange-100"
+                          : "border-neutral-200 bg-white text-neutral-800 hover:border-neutral-400"
                       }`}
                     >
+                      <Watch className="h-4 w-4 text-orange-500" aria-hidden />
                       {time}
                     </button>
                   );
                 })}
               </div>
-              <div className="rounded-2xl bg-neutral-50 px-4 py-3 text-sm text-neutral-700">
-                {selectedDay.label}, {selectedDay.date} · {selectedTime}
+
+              <div className="rounded-2xl border border-neutral-100 bg-neutral-50 px-4 py-3 text-sm text-neutral-700">
+                {selectionText}
               </div>
             </div>
 
             <DrawerFooter className="px-5 pt-0">
               <button className="flex w-full items-center justify-center rounded-full bg-neutral-900 px-6 py-4 text-base font-semibold text-white shadow-lg shadow-black/15 transition hover:translate-y-0.5">
-                Book Now
+                Confirmar agendamento
               </button>
             </DrawerFooter>
           </DrawerContent>
