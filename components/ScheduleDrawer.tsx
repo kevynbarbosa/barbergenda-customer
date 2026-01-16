@@ -9,6 +9,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+import Link from "next/link";
 
 export type DayOption = {
   label: string;
@@ -81,7 +82,9 @@ export function ScheduleDrawer({
                 >
                   <span>{day.label}</span>
                   <span
-                    className={isActive ? "text-orange-700" : "text-neutral-500"}
+                    className={
+                      isActive ? "text-orange-700" : "text-neutral-500"
+                    }
                   >
                     {day.date}
                   </span>
@@ -97,16 +100,16 @@ export function ScheduleDrawer({
                 <button
                   key={time}
                   onClick={() => onSelectTime(time)}
-                    className={`flex items-center justify-center gap-2 rounded-xl border px-3 py-2 text-sm font-semibold transition ${
-                      active
-                        ? "border-orange-500 bg-orange-50 text-orange-900 shadow-sm shadow-orange-100"
-                        : "border-neutral-200 bg-white text-neutral-800 hover:border-neutral-400"
-                    }`}
-                  >
-                    {time}
-                  </button>
-                );
-              })}
+                  className={`flex items-center justify-center gap-2 rounded-xl border px-3 py-2 text-sm font-semibold transition ${
+                    active
+                      ? "border-orange-500 bg-orange-50 text-orange-900 shadow-sm shadow-orange-100"
+                      : "border-neutral-200 bg-white text-neutral-800 hover:border-neutral-400"
+                  }`}
+                >
+                  {time}
+                </button>
+              );
+            })}
           </div>
 
           <div className="rounded-2xl border border-neutral-100 bg-neutral-50 px-4 py-3 text-sm text-neutral-700">
@@ -115,9 +118,12 @@ export function ScheduleDrawer({
         </div>
 
         <DrawerFooter className="px-5 pt-0">
-          <button className="flex w-full items-center justify-center rounded-full bg-neutral-900 px-6 py-4 text-base font-semibold text-white shadow-lg shadow-black/15 transition hover:translate-y-0.5">
+          <Link
+            href="/agendamento/cadastro"
+            className="flex w-full items-center justify-center rounded-full bg-neutral-900 px-6 py-4 text-base font-semibold text-white shadow-lg shadow-black/15 transition hover:translate-y-0.5"
+          >
             Confirmar agendamento
-          </button>
+          </Link>
         </DrawerFooter>
       </DrawerContent>
     </Drawer>
