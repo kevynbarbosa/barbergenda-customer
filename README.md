@@ -20,6 +20,19 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Backend integration
+
+1. Copy `.env.example` to `.env.local` and set the backend URL.
+2. Use the helper in `lib/api.ts` to call the backend:
+
+```ts
+import { apiFetch } from "@/lib/api";
+
+type Example = { id: string };
+
+const data = await apiFetch<Example[]>("/endpoint");
+```
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
